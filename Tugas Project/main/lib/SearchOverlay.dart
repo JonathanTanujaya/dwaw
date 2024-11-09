@@ -7,8 +7,6 @@ class SearchOverlay extends ModalRoute<void> {
   @override
   bool get barrierDismissible => true;
 
-  
-
   @override
   String? get barrierLabel => "Search";
 
@@ -17,6 +15,9 @@ class SearchOverlay extends ModalRoute<void> {
 
   @override
   Duration get transitionDuration => Duration(milliseconds: 300);
+
+  @override
+  bool get opaque => false;
 
   @override
   Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
@@ -49,10 +50,6 @@ class SearchOverlay extends ModalRoute<void> {
       ),
     );
   }
-  
-  @override
-  // TODO: implement opaque
-  bool get opaque => throw UnimplementedError();
 }
 
 class KeywordChip extends StatelessWidget {
