@@ -7,8 +7,8 @@ class BookmarkScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Bookmark"),
-        backgroundColor: Colors.red, // Set app bar background color to red
+        title: Text("Bookmark", style: TextStyle(color: Colors.amberAccent[100]),),
+        backgroundColor: Colors.red[800], // Set app bar background color to red
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -29,7 +29,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  String _profileImage = "images/defGam.jpg"; // Gambar profil default
+  String _profileImage = "images/avatar/defGam.jpg"; // Gambar profil default
 
   @override
   void initState() {
@@ -41,7 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> _loadProfileImage() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _profileImage = prefs.getString('profileImage') ?? "images/defGam.jpg";
+      _profileImage = prefs.getString('profileImage') ?? "images/avatar/defGam.jpg";
     });
   }
 
@@ -63,13 +63,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profil"),
+        title: Text("Profil", style: TextStyle(color: Colors.amberAccent[100])),
+        backgroundColor: Colors.red[800],
       ),
       body: Column(
         children: [
           // Kontainer merah penuh lebar untuk avatar dan tombol login
           Container(
-            color: Colors.red,
+            color: Colors.red[800],
             width: double.infinity,
             padding: EdgeInsets.symmetric(vertical: 16),
             child: Column(

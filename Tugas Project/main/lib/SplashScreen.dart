@@ -5,7 +5,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Durasi splash screen menjadi 5 detik
-    Future.delayed(Duration(seconds: 5), () {
+    Future.delayed(Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => MainScreen()), // Menuju MainScreen
@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
     });
 
     return Scaffold(
-      backgroundColor: Colors.red, // Background merah
+      backgroundColor: Colors.red[800], // Background merah
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

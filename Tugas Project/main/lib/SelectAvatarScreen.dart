@@ -12,16 +12,16 @@ class SelectAvatarScreen extends StatefulWidget {
 class _SelectAvatarScreenState extends State<SelectAvatarScreen> {
   String? _selectedImage;
   final List<String> _avatarOptions = [
-    "images/avatar1.jpg",
-    "images/avatar2.jpg",
-    "images/avatar3.jpg",
-    "images/avatar4.jpg",
-    "images/avatar5.jpg",
-    "images/avatar6.jpg",
-    "images/avatar7.jpg",
-    "images/avatar8.jpg",
-    "images/avatar9.jpg",
-    "images/avatar10.jpg",
+    "images/avatar/avatar1.jpg",
+    "images/avatar/avatar2.jpg",
+    "images/avatar/avatar3.jpg",
+    "images/avatar/avatar4.jpg",
+    "images/avatar/avatar5.jpg",
+    "images/avatar/avatar6.jpg",
+    "images/avatar/avatar7.jpg",
+    "images/avatar/avatar8.jpg",
+    "images/avatar/avatar9.jpg",
+    "images/avatar/avatar10.jpg",
   ];
 
   @override
@@ -34,14 +34,14 @@ class _SelectAvatarScreenState extends State<SelectAvatarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Pilih Avatar"),
-        backgroundColor: Colors.red,
+        title: Text("Pilih Avatar", style: TextStyle(color: Colors.amberAccent[100]),),
+        backgroundColor: Colors.red[800],
       ),
       body: Column(
         children: [
           // Kontainer gambar profil yang dipilih
           Container(
-            color: Colors.red,
+            color: Colors.red[800],
             width: double.infinity,
             padding: EdgeInsets.all(16),
             child: Center(

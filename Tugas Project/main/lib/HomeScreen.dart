@@ -13,34 +13,38 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Chinese Food"),
-        backgroundColor: Colors.red,
+        title: Text(
+          "Chinese Food",
+          style: TextStyle(color: Colors.amberAccent[100]),
+        ),
+        backgroundColor: Colors.red[800],
         leading: Builder(
           builder: (context) {
             return IconButton(
-              icon: Icon(Icons.menu),
+              icon: Icon(Icons.menu, color: Colors.amberAccent[100],),
               onPressed: () => Scaffold.of(context).openDrawer(),
             );
           },
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.search, color: Colors.amberAccent[100],),
             onPressed: () => _showSearchOverlay(context),
           ),
         ],
       ),
       drawer: Drawer(
         child: ListView(
+          
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.red,
+                color: Colors.red[800],
               ),
               child: Text(
                 'Menu',
-                style: TextStyle(color: Colors.white, fontSize: 24),
+                style: TextStyle(color: Colors.amberAccent[100], fontSize: 24),
               ),
             ),
             ListTile(
@@ -51,11 +55,11 @@ class HomeScreen extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.favorite),
-              title: Text('Favorites'),
+              title: Text("Bookmark"),
+              leading: Icon(Icons.bookmark),
               onTap: () {
                 Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => BookmarkScreen()));
+                    MaterialPageRoute(builder: (context) => BookmarkScreen()));
               },
             ),
             ListTile(
@@ -85,7 +89,7 @@ class HomeScreen extends StatelessWidget {
               height: 200,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('images/chinese_food_banner.jpg'),
+                  image: AssetImage('images/resep/banner.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -107,7 +111,13 @@ class HomeScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: 5,
                 itemBuilder: (context, index) {
-                  final categories = ["Daging", "Ikan", "Sayuran", "Mie", "Dimsum"];
+                  final categories = [
+                    "Daging",
+                    "Ikan",
+                    "Sayuran",
+                    "Mie",
+                    "Dimsum"
+                  ];
                   return Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                     child: Container(
@@ -126,7 +136,8 @@ class HomeScreen extends StatelessWidget {
                       child: Center(
                         child: Text(
                           categories[index],
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -135,7 +146,7 @@ class HomeScreen extends StatelessWidget {
                 },
               ),
             ),
-            
+
             SizedBox(height: 16),
 
             // Popular Dishes Section
@@ -154,19 +165,19 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   PopularDishCard(
                     title: "Kung Pao Chicken",
-                    imagePath: "images/kung_pao_chicken.jpg",
+                    imagePath: "images/resep/kung_pao_chicken.jpeg",
                   ),
                   PopularDishCard(
                     title: "Sweet and Sour Pork",
-                    imagePath: "images/sweet_sour_pork.jpg",
+                    imagePath: "images/resep/sweet_sour_pork.jpeg",
                   ),
                   PopularDishCard(
                     title: "Peking Duck",
-                    imagePath: "images/peking_duck.jpg",
+                    imagePath: "images/resep/peking_duck.jpg",
                   ),
                   PopularDishCard(
                     title: "Mapo Tofu",
-                    imagePath: "images/mapo_tofu.jpg",
+                    imagePath: "images/resep/mapo_tofu.jpg",
                   ),
                 ],
               ),
