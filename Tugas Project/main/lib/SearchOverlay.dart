@@ -1,52 +1,45 @@
 import 'package:flutter/material.dart';
 
-class SearchOverlay extends ModalRoute<void> {
+class SearchOverlay extends StatefulWidget {
   @override
-  Color? get barrierColor => Colors.black.withOpacity(0.5);
+  _SearchOverlayState createState() => _SearchOverlayState();
+}
 
+class _SearchOverlayState extends State<SearchOverlay> {
   @override
-  bool get barrierDismissible => true;
-
-  @override
-  String? get barrierLabel => "Search";
-
-  @override
-  bool get maintainState => true;
-
-  @override
-  Duration get transitionDuration => Duration(milliseconds: 300);
-
-  @override
-  bool get opaque => false;
-
-  @override
-  Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: Material(
-        borderRadius: BorderRadius.circular(12),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 40.0, left: 8.0, right: 8.0, bottom: 8.0), // Add padding to position at the top
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "Cari resep...",
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 8),
-              Wrap(
-                children: [
-                  KeywordChip(keyword: "Nasi Goreng"),
-                  KeywordChip(keyword: "Soto"),
-                  KeywordChip(keyword: "Bakso"),
-                ],
-              ),
-            ],
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black.withOpacity(0.5),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+        title: TextField(
+          autofocus: true,
+          decoration: InputDecoration(
+            hintText: "Cari resep...",
+            border: InputBorder.none,
+            prefixIcon: Icon(Icons.search),
           ),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.close),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          )
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            KeywordChip(keyword: "Nasi Goreng"),
+            KeywordChip(keyword: "Soto"),
+            KeywordChip(keyword: "Bakso"),
+          ],
         ),
       ),
     );
@@ -61,6 +54,8 @@ class KeywordChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Chip(
       label: Text(keyword),
+      backgroundColor: Colors.red[100],
+      deleteIcon: Icon(Icons.close, size: 18),
       onDeleted: () {},
     );
   }
