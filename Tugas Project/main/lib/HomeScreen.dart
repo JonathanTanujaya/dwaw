@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:main/ProfileScreen.dart';
 import 'package:main/SearchOverlay.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -53,7 +54,8 @@ class HomeScreen extends StatelessWidget {
               leading: Icon(Icons.favorite),
               title: Text('Favorites'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => BookmarkScreen()));
               },
             ),
             ListTile(

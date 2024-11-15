@@ -2,6 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:main/SelectAvatarScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+class BookmarkScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Bookmark"),
+        backgroundColor: Colors.red, // Set app bar background color to red
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // Navigate back to the previous screen
+          },
+        ),
+      ),
+      body: Center(
+        child: Text("Daftar Bookmark Kosong"),
+      ),
+    );
+  }
+}
+
 class ProfileScreen extends StatefulWidget {
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -92,6 +113,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ListTile(
             title: Text("Bookmark"),
             leading: Icon(Icons.bookmark),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => BookmarkScreen()));
+            },
           ),
         ],
       ),
