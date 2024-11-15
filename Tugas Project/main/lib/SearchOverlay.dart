@@ -21,11 +21,12 @@ class SearchOverlay extends ModalRoute<void> {
 
   @override
   Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
-    return Center(
+    return Align(
+      alignment: Alignment.topCenter,
       child: Material(
         borderRadius: BorderRadius.circular(12),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.only(top: 40.0, left: 8.0, right: 8.0, bottom: 8.0), // Add padding to position at the top
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
