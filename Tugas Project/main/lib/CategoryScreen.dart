@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'RecipeDetailScreen.dart'; // Import halaman detail resep
+import 'package:main/data/dataRecipe.dart';
+
+import 'RecipeDetailScreen.dart';
 
 class CategoryScreen extends StatefulWidget {
   @override
@@ -7,37 +9,46 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
-  // Daftar kategori resep Chinese Food (contoh)
-  final Map<String, List<String>> categories = {
-    'A': ['Ayam Kung Pao', 'Ayam Hainan'],
-    'B': ['Bebek Peking'],
-    'C': ['Capcay', 'Chow Mein'],
-    'D': ['Dimsum'],
-    'M': ['Mapo Tofu'],
-    'N': ['Nasi Goreng China'],
-    'S': ['Sup Wantan', 'Spring Roll'],
-  };
-
-  // Variabel untuk menyimpan hasil pencarian
   List<String> searchResults = [];
 
   // Fungsi untuk mencari resep berdasarkan input pengguna
   void searchRecipe(String query) {
-    List<String> results = [];
-    categories.forEach((key, value) {
-      results.addAll(value.where((recipe) => recipe.toLowerCase().contains(query.toLowerCase())));
-    });
+    List<String> results = rList
+        .where((recipe) =>
+            recipe.name.toLowerCase().contains(query.toLowerCase()))
+        .map((recipe) => recipe.name)
+        .toList();
 
     setState(() {
       searchResults = results;
     });
   }
 
+  // Fungsi untuk mengelompokkan resep berdasarkan inisial
+  Map<String, List<int>> groupRecipesByInitial() {
+    Map<String, List<int>> groupedRecipes = {};
+
+    for (int i = 0; i < rList.length; i++) {
+      String initial = rList[i].name[0].toUpperCase();
+      if (groupedRecipes.containsKey(initial)) {
+        groupedRecipes[initial]!.add(i);
+      } else {
+        groupedRecipes[initial] = [i];
+      }
+    }
+    return groupedRecipes;
+  }
+
   @override
   Widget build(BuildContext context) {
+    Map<String, List<int>> groupedRecipes = groupRecipesByInitial();
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Daftar Isi", style: TextStyle(color: Colors.amberAccent[100])),
+        title: Text(
+          "Daftar Isi Resep Masakan China",
+          style: TextStyle(color: Colors.amberAccent[100]),
+        ),
         backgroundColor: Colors.red[800],
       ),
       body: Column(
@@ -62,50 +73,47 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ? ListView.builder(
                     itemCount: searchResults.length,
                     itemBuilder: (context, index) {
+                      int recipeIndex = rList.indexWhere(
+                          (recipe) => recipe.name == searchResults[index]);
                       return ListTile(
                         title: Text(searchResults[index]),
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => RecipeDetailScreen(recipeName: searchResults[index]),
+                              builder: (context) => RecipeDetailScreen(
+                                recipeIndex: recipeIndex,
+                              ),
                             ),
                           );
                         },
                       );
                     },
                   )
-                : ListView.builder(
-                    itemCount: categories.length,
-                    itemBuilder: (context, index) {
-                      String key = categories.keys.elementAt(index);
-                      return Container(
-                        margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-                        decoration: BoxDecoration(
-                          color: Colors.red[100],
-                          borderRadius: BorderRadius.circular(10),
+                : ListView(
+                    children: groupedRecipes.keys.map((key) {
+                      return ExpansionTile(
+                        title: Text(
+                          key,
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
-                        child: ExpansionTile(
-                          title: Text(
-                            key,
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          children: categories[key]!.map((recipe) {
-                            return ListTile(
-                              title: Text(recipe),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => RecipeDetailScreen(recipeName: recipe),
+                        children: groupedRecipes[key]!.map((index) {
+                          return ListTile(
+                            title: Text(rList[index].name),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RecipeDetailScreen(
+                                    recipeIndex: index,
                                   ),
-                                );
-                              },
-                            );
-                          }).toList(),
-                        ),
+                                ),
+                              );
+                            },
+                          );
+                        }).toList(),
                       );
-                    },
+                    }).toList(),
                   ),
           ),
         ],

@@ -22,6 +22,12 @@ class _SelectAvatarScreenState extends State<SelectAvatarScreen> {
     "images/avatar/avatar8.jpg",
     "images/avatar/avatar9.jpg",
     "images/avatar/avatar10.jpg",
+    "images/avatar/avatar11.gif",
+    "images/avatar/avatar12.jpg",
+    "images/avatar/avatar13.gif",
+    "images/avatar/avatar14.jpg",
+    "images/avatar/avatar15.jpg",
+    "images/avatar/avatar16.jpg",
   ];
 
   @override

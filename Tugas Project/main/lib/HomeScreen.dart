@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:main/ProfileScreen.dart';
 import 'package:main/SearchOverlay.dart';
+import 'RecipeListScreen.dart'; // Layar untuk daftar resep berdasarkan kategori.
 
 class HomeScreen extends StatelessWidget {
+  // Data kategori
+  final List<Map<String, String>> categories = [
+    {'name': 'Ayam', 'image': 'images/categories/ayam.jpeg'},
+    {'name': 'Pedas', 'image': 'images/categories/pedas.jpeg'},
+    {'name': 'Bebek', 'image': 'images/categories/bebek.jpg'},
+    {'name': 'Panggang', 'image': 'images/categories/panggang.jpeg'},
+  ];
+
+  // Menampilkan overlay pencarian
   void _showSearchOverlay(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => SearchOverlay()),
@@ -21,27 +31,24 @@ class HomeScreen extends StatelessWidget {
         leading: Builder(
           builder: (context) {
             return IconButton(
-              icon: Icon(Icons.menu, color: Colors.amberAccent[100],),
+              icon: Icon(Icons.menu, color: Colors.amberAccent[100]),
               onPressed: () => Scaffold.of(context).openDrawer(),
             );
           },
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.search, color: Colors.amberAccent[100],),
+            icon: Icon(Icons.search, color: Colors.amberAccent[100]),
             onPressed: () => _showSearchOverlay(context),
           ),
         ],
       ),
       drawer: Drawer(
         child: ListView(
-          
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.red[800],
-              ),
+              decoration: BoxDecoration(color: Colors.red[800]),
               child: Text(
                 'Menu',
                 style: TextStyle(color: Colors.amberAccent[100], fontSize: 24),
@@ -55,8 +62,8 @@ class HomeScreen extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text("Bookmark"),
               leading: Icon(Icons.bookmark),
+              title: Text("Bookmark"),
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => BookmarkScreen()));
@@ -105,40 +112,64 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 8),
-            Container(
+            SizedBox(
               height: 120,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 5,
+                itemCount: categories.length,
                 itemBuilder: (context, index) {
-                  final categories = [
-                    "Daging",
-                    "Ikan",
-                    "Sayuran",
-                    "Mie",
-                    "Dimsum"
-                  ];
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                    child: Container(
-                      width: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.red[100],
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 5,
-                            offset: Offset(2, 2),
+                  final category = categories[index];
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RecipeListScreen(
+                            category: category['name']!,
                           ),
-                        ],
-                      ),
-                      child: Center(
-                        child: Text(
-                          categories[index],
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Container(
+                        width: 120,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          image: DecorationImage(
+                            image: AssetImage(category['image']!),
+                            fit: BoxFit.cover,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black26,
+                              blurRadius: 8,
+                              offset: Offset(2, 2),
+                            ),
+                          ],
+                        ),
+                        child: Container(
+                          alignment: Alignment.bottomCenter,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.black.withOpacity(0.6),
+                                Colors.transparent,
+                              ],
+                              begin: Alignment.bottomCenter,
+                              end: Alignment.topCenter,
+                            ),
+                          ),
+                          padding: EdgeInsets.all(8),
+                          child: Text(
+                            category['name']!,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -146,7 +177,6 @@ class HomeScreen extends StatelessWidget {
                 },
               ),
             ),
-
             SizedBox(height: 16),
 
             // Popular Dishes Section
@@ -182,6 +212,34 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
+
+            // Additional Section: Tips of the Day
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                "Tips of the Day",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(8),
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.yellow[100],
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 5,
+                    offset: Offset(2, 2),
+                  ),
+                ],
+              ),
+              child: Text(
+                "Pro Tip: Always use fresh ingredients for a more authentic taste!",
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
           ],
         ),
       ),
@@ -189,7 +247,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// Widget for Popular Dish Card
+// Widget untuk kartu Popular Dish
 class PopularDishCard extends StatelessWidget {
   final String title;
   final String imagePath;
@@ -198,41 +256,37 @@ class PopularDishCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: 180,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 5,
-              offset: Offset(2, 2),
-            ),
-          ],
+    return Container(
+      margin: EdgeInsets.all(8),
+      width: 160,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        image: DecorationImage(
+          image: AssetImage(imagePath),
+          fit: BoxFit.cover,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-              child: Image.asset(
-                imagePath,
-                width: double.infinity,
-                height: 120,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                title,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
+      ),
+      child: Container(
+        alignment: Alignment.bottomCenter,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          gradient: LinearGradient(
+            colors: [
+              Colors.black.withOpacity(0.6),
+              Colors.transparent,
+            ],
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+          ),
+        ),
+        padding: EdgeInsets.all(8),
+        child: Text(
+          title,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
