@@ -2,6 +2,7 @@ import 'package:main/models/recipe.dart';
 
 var rList = [
   Recipe(
+      id: '',
       name: 'Ayam Kung Pao',
       category: ['Ayam', 'Pedas'],
       description:
@@ -37,6 +38,7 @@ var rList = [
       ],
       imageAsset: 'images/kung_pao_chicken.jpg'),
   Recipe(
+      id: '',
       name: 'Bebek Peking',
       category: ['Bebek', 'Panggang'],
       description:
@@ -60,6 +62,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Cha Siu (Babi Panggang)',
       category: ['Babi', 'Panggang'],
       description:
@@ -84,6 +87,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Dimsum Ayam',
       category: ['Ayam', 'Kukus'],
       description:
@@ -115,6 +119,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Egg Foo Young',
       category: ['Telur', 'Goreng'],
       description:
@@ -140,6 +145,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Fried Rice Yangzhou',
       category: ['Nasi', 'Goreng'],
       description:
@@ -165,6 +171,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Hainanese Chicken Rice',
       category: ['Ayam', 'Rebus'],
       description:
@@ -188,6 +195,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Jiaozi (Pangsit China)',
       category: ['Daging', 'Kukus'],
       description:
@@ -211,6 +219,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Kung Pao Shrimp',
       category: ['Udang', 'Pedas'],
       description:
@@ -236,6 +245,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Lo Mai Gai',
       category: ['Nasi', 'Kukus'],
       description:
@@ -259,6 +269,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Moo Shu Pork',
       category: ['Babi', 'Tumis'],
       description:
@@ -284,6 +295,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Peking Duck Wrap',
       category: ['Bebek', 'Panggang'],
       description:
@@ -304,6 +316,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Spring Roll',
       category: ['Sayuran', 'Goreng'],
       description:
@@ -327,6 +340,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Chow Mein',
       category: ['Mie', 'Tumis'],
       description:
@@ -352,6 +366,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Egg Drop Soup',
       category: ['Sup', 'Telur'],
       description:
@@ -375,6 +390,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Fried Rice Yangzhou',
       category: ['Nasi', 'Goreng'],
       description:
@@ -400,6 +416,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Gong Bao Chicken',
       category: ['Ayam', 'Pedas'],
       description:
@@ -425,6 +442,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Hot and Sour Soup',
       category: ['Sup', 'Pedas'],
       description:
@@ -450,6 +468,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Kung Pao Vegetables',
       category: ['Sayuran', 'Pedas'],
       description:
@@ -475,6 +494,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Ma Po Tofu',
       category: ['Tahu', 'Pedas'],
       description:
@@ -500,6 +520,7 @@ var rList = [
       ],
       imageAsset: 'images/mapo_tofu'),
   Recipe(
+      id: '',
       name: 'Spring Rolls',
       category: ['Cemilan', 'Goreng'],
       description:
@@ -524,6 +545,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Steamed Dumplings',
       category: ['Cemilan', 'Kukus'],
       description:
@@ -546,6 +568,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Peking Duck',
       category: ['Bebek', 'Panggang'],
       description:
@@ -567,6 +590,7 @@ var rList = [
       ],
       imageAsset: 'images/peking_duck'),
   Recipe(
+      id: '',
       name: 'Sesame Chicken',
       category: ['Ayam', 'Goreng'],
       description:
@@ -588,6 +612,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Dim Sum Siomai',
       category: ['Cemilan', 'Kukus'],
       description:
@@ -610,6 +635,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Honey Walnut Shrimp',
       category: ['Udang', 'Goreng'],
       description:
@@ -632,6 +658,7 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
+      id: '',
       name: 'Char Siu Bao',
       category: ['Cemilan', 'Kukus'],
       description:
@@ -651,53 +678,53 @@ var rList = [
       ],
       imageAsset: 'images/'),
   Recipe(
-  name: 'General Tso’s Chicken',
-  category: ['Ayam', 'Goreng'],
-  description:
-      'General Tso’s Chicken adalah ayam goreng renyah dengan saus pedas manis.',
-  alat: ['Wajan', 'Pisau', 'Talenan', 'Mangkuk'],
-  bahan: [
-    'Fillet ayam, potong dadu',
-    'Tepung maizena',
-    'Telur, kocok lepas',
-    'Minyak goreng',
-    'Saus pedas manis (campuran saus tomat, kecap asin, gula, dan cabai bubuk)',
-    'Bawang hijau untuk taburan'
-  ],
-  langkahlangkah: [
-    'Balur ayam dengan tepung maizena dan celupkan ke dalam telur.',
-    'Goreng ayam hingga kecokelatan.',
-    'Campur ayam goreng dengan saus pedas manis, aduk rata.',
-    'Taburi dengan bawang hijau dan sajikan.'
-  ],
-  imageAsset: 'images/general_tso_chicken.jpg', // Nama file gambar
-),
-
-Recipe(
-  name: 'Babi Asam Manis',
-  category: ['Babi', 'Asam Manis'],
-  description:
-      'Babi Asam Manis adalah masakan khas dengan daging babi yang dimasak dalam saus asam manis lezat.',
-  alat: ['Wajan', 'Pisau', 'Talenan', 'Mangkuk', 'Sendok Kayu'],
-  bahan: [
-    'Daging babi, potong dadu',
-    'Tepung maizena',
-    'Telur, kocok lepas',
-    'Minyak goreng',
-    'Saus asam manis (campuran saus tomat, cuka, gula, dan nanas)',
-    'Paprika merah, potong kotak',
-    'Bawang bombay, iris memanjang',
-    'Nanas, potong kecil-kecil'
-  ],
-  langkahlangkah: [
-    'Balur daging babi dengan tepung maizena dan celupkan ke dalam telur.',
-    'Goreng babi hingga kecokelatan, tiriskan.',
-    'Tumis bawang bombay, paprika, dan nanas hingga harum.',
-    'Masukkan saus asam manis dan aduk hingga rata.',
-    'Tambahkan daging babi goreng ke dalam saus, masak sebentar hingga meresap.',
-    'Sajikan hangat.'
-  ],
-  imageAsset: 'images/sweet_sour_pork.jpg', // Nama file gambar
-),
-
+    id: '',
+    name: 'General Tso’s Chicken',
+    category: ['Ayam', 'Goreng'],
+    description:
+        'General Tso’s Chicken adalah ayam goreng renyah dengan saus pedas manis.',
+    alat: ['Wajan', 'Pisau', 'Talenan', 'Mangkuk'],
+    bahan: [
+      'Fillet ayam, potong dadu',
+      'Tepung maizena',
+      'Telur, kocok lepas',
+      'Minyak goreng',
+      'Saus pedas manis (campuran saus tomat, kecap asin, gula, dan cabai bubuk)',
+      'Bawang hijau untuk taburan'
+    ],
+    langkahlangkah: [
+      'Balur ayam dengan tepung maizena dan celupkan ke dalam telur.',
+      'Goreng ayam hingga kecokelatan.',
+      'Campur ayam goreng dengan saus pedas manis, aduk rata.',
+      'Taburi dengan bawang hijau dan sajikan.'
+    ],
+    imageAsset: 'images/general_tso_chicken.jpg', // Nama file gambar
+  ),
+  Recipe(
+    id: '',
+    name: 'Babi Asam Manis',
+    category: ['Babi', 'Asam Manis'],
+    description:
+        'Babi Asam Manis adalah masakan khas dengan daging babi yang dimasak dalam saus asam manis lezat.',
+    alat: ['Wajan', 'Pisau', 'Talenan', 'Mangkuk', 'Sendok Kayu'],
+    bahan: [
+      'Daging babi, potong dadu',
+      'Tepung maizena',
+      'Telur, kocok lepas',
+      'Minyak goreng',
+      'Saus asam manis (campuran saus tomat, cuka, gula, dan nanas)',
+      'Paprika merah, potong kotak',
+      'Bawang bombay, iris memanjang',
+      'Nanas, potong kecil-kecil'
+    ],
+    langkahlangkah: [
+      'Balur daging babi dengan tepung maizena dan celupkan ke dalam telur.',
+      'Goreng babi hingga kecokelatan, tiriskan.',
+      'Tumis bawang bombay, paprika, dan nanas hingga harum.',
+      'Masukkan saus asam manis dan aduk hingga rata.',
+      'Tambahkan daging babi goreng ke dalam saus, masak sebentar hingga meresap.',
+      'Sajikan hangat.'
+    ],
+    imageAsset: 'images/sweet_sour_pork.jpg', // Nama file gambar
+  ),
 ];

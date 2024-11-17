@@ -28,11 +28,12 @@ class RecipeListScreen extends StatelessWidget {
                 final recipe = filteredRecipes[index];
                 return GestureDetector(
                   onTap: () {
+                    // Navigasi ke layar detail menggunakan ID resep.
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => RecipeDetailScreen(
-                          recipeIndex: rList.indexOf(recipe), // Memastikan data yang sesuai.
+                          recipeId: recipe.id, // Gunakan `id` alih-alih index.
                         ),
                       ),
                     );

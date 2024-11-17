@@ -25,15 +25,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
   }
 
   // Fungsi untuk mengelompokkan resep berdasarkan inisial
-  Map<String, List<int>> groupRecipesByInitial() {
-    Map<String, List<int>> groupedRecipes = {};
+  Map<String, List<String>> groupRecipesByInitial() {
+    Map<String, List<String>> groupedRecipes = {};
 
-    for (int i = 0; i < rList.length; i++) {
-      String initial = rList[i].name[0].toUpperCase();
+    for (var recipe in rList) {
+      String initial = recipe.name[0].toUpperCase();
       if (groupedRecipes.containsKey(initial)) {
-        groupedRecipes[initial]!.add(i);
+        groupedRecipes[initial]!.add(recipe.id);
       } else {
-        groupedRecipes[initial] = [i];
+        groupedRecipes[initial] = [recipe.id];
       }
     }
     return groupedRecipes;
@@ -41,7 +41,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, List<int>> groupedRecipes = groupRecipesByInitial();
+    Map<String, List<String>> groupedRecipes = groupRecipesByInitial();
 
     return Scaffold(
       appBar: AppBar(
@@ -73,8 +73,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ? ListView.builder(
                     itemCount: searchResults.length,
                     itemBuilder: (context, index) {
-                      int recipeIndex = rList.indexWhere(
-                          (recipe) => recipe.name == searchResults[index]);
+                      String recipeId = rList
+                          .firstWhere((recipe) =>
+                              recipe.name == searchResults[index])
+                          .id;
                       return ListTile(
                         title: Text(searchResults[index]),
                         onTap: () {
@@ -82,7 +84,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => RecipeDetailScreen(
-                                recipeIndex: recipeIndex,
+                                recipeId: recipeId, // Gunakan ID di sini
                               ),
                             ),
                           );
@@ -95,17 +97,19 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       return ExpansionTile(
                         title: Text(
                           key,
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
-                        children: groupedRecipes[key]!.map((index) {
+                        children: groupedRecipes[key]!.map((id) {
+                          final recipe = rList.firstWhere((recipe) => recipe.id == id);
                           return ListTile(
-                            title: Text(rList[index].name),
+                            title: Text(recipe.name),
                             onTap: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => RecipeDetailScreen(
-                                    recipeIndex: index,
+                                    recipeId: recipe.id, // Gunakan ID di sini
                                   ),
                                 ),
                               );

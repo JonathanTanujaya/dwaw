@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:main/ProfileScreen.dart';
 import 'package:main/RecipeDetailScreen.dart';
 import 'package:main/RecipeListScreen.dart';
-import 'package:main/SearchOverlay.dart'; // Untuk memilih tips secara acak.
+import 'package:main/SearchOverlay.dart';
+import 'package:main/data/dataRecipe.dart';
+
 
 class HomeScreen extends StatelessWidget {
   // Data kategori
@@ -213,23 +215,23 @@ class HomeScreen extends StatelessWidget {
               height: 200,
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                children: [
-                  PopularDishCard(
-                    title: "Kung Pao Chicken",
-                    imagePath: "images/resep/kung_pao_chicken.jpeg",
+                children: rList.map((recipe) {
+                  return PopularDishCard(
+                    title: recipe.name,
+                    imagePath: recipe.imageAsset,
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => RecipeDetailScreen(
-                            recipeIndex: 0, // Pastikan indeks sesuai data.
+                            recipeId: recipe.id, // Menggunakan ID resep.
                           ),
                         ),
                       );
                     },
-                  ),
-                  // Tambahkan data lain seperti di atas dengan indeks yang sesuai.
-                ],
+                  );
+                  //menambahkan popular dish baru 
+                }).toList(),
               ),
             ),
 
@@ -273,7 +275,8 @@ class PopularDishCard extends StatelessWidget {
   final String imagePath;
   final VoidCallback onTap;
 
-  PopularDishCard({required this.title, required this.imagePath, required this.onTap});
+  PopularDishCard(
+      {required this.title, required this.imagePath, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

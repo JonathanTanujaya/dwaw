@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:main/data/dataRecipe.dart';
+import 'package:main/data/dataRecipe.dart'; // Import file data resep.
 
 class RecipeDetailScreen extends StatelessWidget {
-  final int recipeIndex;
+  final String recipeId; // Menggunakan ID sebagai parameter utama.
 
-  RecipeDetailScreen({required this.recipeIndex});
+  RecipeDetailScreen({required this.recipeId});
 
   @override
   Widget build(BuildContext context) {
-    final recipeData = rList[recipeIndex];
+    // Mencari data berdasarkan ID
+    final recipeData = rList.firstWhere(
+      (recipe) => recipe.id == recipeId, // Asumsi: Setiap resep memiliki properti `id`.
+      orElse: () => throw Exception("Resep dengan ID $recipeId tidak ditemukan."),
+    );
 
     return Scaffold(
       appBar: AppBar(
