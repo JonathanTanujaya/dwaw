@@ -8,98 +8,59 @@ class RecipeDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Cari resep berdasarkan indeks
     final recipeData = rList[recipeIndex];
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
           recipeData.name,
-          style: TextStyle(color: Colors.amberAccent[100]),
+          style: const TextStyle(color: Colors.white),
         ),
-        iconTheme: IconThemeData(
-          color: Colors.amberAccent[800], // Warna ikon back
-        ),
-        backgroundColor: Colors.red[800],
+        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: Colors.redAccent,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Gambar Resep
-            if (recipeData.imageAsset.isNotEmpty)
-              Container(
-                margin: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 8,
-                      offset: Offset(0, 4),
-                    )
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Gambar Resep
+              if (recipeData.imageAsset.isNotEmpty)
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
                   child: Image.asset(
                     recipeData.imageAsset,
-                    fit: BoxFit.cover,
                     width: double.infinity,
-                    height: 200,
+                    height: 250,
+                    fit: BoxFit.cover,
                   ),
                 ),
-              ),
 
-            // Deskripsi
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                recipeData.description,
-                style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
-              ),
-            ),
-
-            // Alat dan Bahan
-            if (recipeData.alat.isNotEmpty || recipeData.bahan.isNotEmpty)
-              _buildSectionTitle('Alat & Bahan'),
-            if (recipeData.alat.isNotEmpty || recipeData.bahan.isNotEmpty)
+              // Nama dan Deskripsi
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Wrap(
-                  spacing: 8.0,
-                  runSpacing: 8.0,
-                  children: [
-                    ...recipeData.alat
-                        .map((alat) => _buildChip(alat, Colors.red)),
-                    ...recipeData.bahan
-                        .map((bahan) => _buildChip(bahan, Colors.green)),
-                  ],
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                child: Text(
+                  recipeData.description,
+                  style: const TextStyle(fontSize: 16),
                 ),
               ),
 
-            // Langkah-langkah
-            if (recipeData.langkahlangkah.isNotEmpty)
-              _buildSectionTitle('Langkah-Langkah'),
-            ...recipeData.langkahlangkah.asMap().entries.map((entry) {
-              return Card(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                elevation: 4,
-                child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.blue[300],
-                    child: Text(
-                      '${entry.key + 1}',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  title: Text(entry.value),
-                  subtitle: Text('Langkah ${entry.key + 1}'),
-                ),
-              );
-            }),
-          ],
+              // Alat dan Bahan
+              if (recipeData.alat.isNotEmpty || recipeData.bahan.isNotEmpty) ...[
+                _buildSectionTitle('Alat'),
+                _buildList(recipeData.alat),
+                _buildSectionTitle('Bahan'),
+                _buildList(recipeData.bahan),
+              ],
+
+              // Langkah-langkah
+              if (recipeData.langkahlangkah.isNotEmpty) ...[
+                _buildSectionTitle('Langkah-Langkah'),
+                _buildStepList(recipeData.langkahlangkah),
+              ],
+            ],
+          ),
         ),
       ),
     );
@@ -108,22 +69,51 @@ class RecipeDetailScreen extends StatelessWidget {
   // Fungsi untuk menampilkan judul section
   Widget _buildSectionTitle(String title) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Text(
         title,
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
     );
   }
 
-  // Fungsi untuk membuat chip
-  Widget _buildChip(String text, Color color) {
-    return Chip(
-      label: Text(
-        text,
-        style: TextStyle(color: Colors.white),
-      ),
-      backgroundColor: color,
+  // Fungsi untuk membuat daftar alat/bahan
+  Widget _buildList(List<String> items) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: items
+          .map((item) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4.0),
+                child: Row(
+                  children: [
+                    const Icon(Icons.check, size: 18, color: Colors.green),
+                    const SizedBox(width: 8),
+                    Expanded(child: Text(item)),
+                  ],
+                ),
+              ))
+          .toList(),
+    );
+  }
+
+  // Fungsi untuk langkah-langkah
+  Widget _buildStepList(List<String> steps) {
+    return Column(
+      children: steps.asMap().entries.map((entry) {
+        return Card(
+          margin: const EdgeInsets.symmetric(vertical: 8.0),
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Colors.blueAccent,
+              child: Text(
+                '${entry.key + 1}',
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+            title: Text(entry.value),
+          ),
+        );
+      }).toList(),
     );
   }
 }

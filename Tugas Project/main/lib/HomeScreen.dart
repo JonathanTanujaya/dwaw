@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:main/ProfileScreen.dart';
-import 'package:main/SearchOverlay.dart';
-import 'RecipeListScreen.dart'; // Layar untuk daftar resep berdasarkan kategori.
+import 'package:main/RecipeDetailScreen.dart';
+import 'package:main/RecipeListScreen.dart';
+import 'package:main/SearchOverlay.dart'; // Untuk memilih tips secara acak.
 
 class HomeScreen extends StatelessWidget {
   // Data kategori
@@ -12,6 +15,21 @@ class HomeScreen extends StatelessWidget {
     {'name': 'Panggang', 'image': 'images/categories/panggang.jpeg'},
   ];
 
+  // Daftar tips acak
+  final List<String> tips = [
+    "Pro Tip: Always use fresh ingredients for a more authentic taste!",
+    "Pro Tip: Balance your flavors with a pinch of sugar or a dash of vinegar.",
+    "Pro Tip: Toast your spices before cooking to release their aroma.",
+    "Pro Tip: Don't overcrowd the pan to ensure even cooking.",
+    "Pro Tip: Let your meat rest before cutting for juicier results.",
+  ];
+
+  // Fungsi untuk mendapatkan tips acak
+  String getRandomTip() {
+    final randomIndex = Random().nextInt(tips.length);
+    return tips[randomIndex];
+  }
+
   // Menampilkan overlay pencarian
   void _showSearchOverlay(BuildContext context) {
     Navigator.of(context).push(
@@ -21,6 +39,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Menyimpan tips acak untuk ditampilkan
+    final randomTip = getRandomTip();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -196,24 +217,23 @@ class HomeScreen extends StatelessWidget {
                   PopularDishCard(
                     title: "Kung Pao Chicken",
                     imagePath: "images/resep/kung_pao_chicken.jpeg",
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RecipeDetailScreen(
+                            recipeIndex: 0, // Pastikan indeks sesuai data.
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                  PopularDishCard(
-                    title: "Sweet and Sour Pork",
-                    imagePath: "images/resep/sweet_sour_pork.jpeg",
-                  ),
-                  PopularDishCard(
-                    title: "Peking Duck",
-                    imagePath: "images/resep/peking_duck.jpg",
-                  ),
-                  PopularDishCard(
-                    title: "Mapo Tofu",
-                    imagePath: "images/resep/mapo_tofu.jpg",
-                  ),
+                  // Tambahkan data lain seperti di atas dengan indeks yang sesuai.
                 ],
               ),
             ),
 
-            // Additional Section: Tips of the Day
+            // Tips of the Day Section
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
@@ -236,7 +256,7 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               child: Text(
-                "Pro Tip: Always use fresh ingredients for a more authentic taste!",
+                randomTip,
                 style: TextStyle(fontSize: 16),
               ),
             ),
@@ -247,45 +267,49 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// Widget untuk kartu Popular Dish
+// Widget Popular Dish Card
 class PopularDishCard extends StatelessWidget {
   final String title;
   final String imagePath;
+  final VoidCallback onTap;
 
-  PopularDishCard({required this.title, required this.imagePath});
+  PopularDishCard({required this.title, required this.imagePath, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(8),
-      width: 160,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        image: DecorationImage(
-          image: AssetImage(imagePath),
-          fit: BoxFit.cover,
-        ),
-      ),
+    return GestureDetector(
+      onTap: onTap, // Menangani klik pada kartu
       child: Container(
-        alignment: Alignment.bottomCenter,
+        margin: EdgeInsets.all(8),
+        width: 160,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          gradient: LinearGradient(
-            colors: [
-              Colors.black.withOpacity(0.6),
-              Colors.transparent,
-            ],
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
+          image: DecorationImage(
+            image: AssetImage(imagePath),
+            fit: BoxFit.cover,
           ),
         ),
-        padding: EdgeInsets.all(8),
-        child: Text(
-          title,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+        child: Container(
+          alignment: Alignment.bottomCenter,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            gradient: LinearGradient(
+              colors: [
+                Colors.black.withOpacity(0.6),
+                Colors.transparent,
+              ],
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+            ),
+          ),
+          padding: EdgeInsets.all(8),
+          child: Text(
+            title,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
