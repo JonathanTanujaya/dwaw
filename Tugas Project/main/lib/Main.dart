@@ -51,7 +51,7 @@ class _MainScreenState extends State<MainScreen> {
         onTap: _onItemTapped,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Categories'),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Daftar Isi'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),

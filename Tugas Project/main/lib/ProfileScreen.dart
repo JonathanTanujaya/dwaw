@@ -20,7 +20,21 @@ class BookmarkScreen extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Text("Daftar Bookmark Kosong"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.bookmark_outline, size: 100, color: Colors.red[300]),
+            SizedBox(height: 10),
+            Text(
+              "Daftar Bookmark Kosong",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[700],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -32,14 +46,14 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  String _profileImage = "images/avatar/defGam.jpg"; // Gambar profil default
+  String _profileImage = "images/avatar/defGam.jpg";
   String _userName = "User";
   String _themePreference = "Light Theme";
 
   @override
   void initState() {
     super.initState();
-    _loadProfileData(); // Memuat data profil
+    _loadProfileData();
   }
 
   Future<void> _loadProfileData() async {
@@ -78,9 +92,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             // Header Profil
             Container(
-              color: Colors.red[800],
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.red[800]!, Colors.orange[400]!],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+              ),
               width: double.infinity,
-              padding: EdgeInsets.symmetric(vertical: 16),
+              padding: EdgeInsets.symmetric(vertical: 20),
               child: Column(
                 children: [
                   GestureDetector(
@@ -101,8 +121,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       }
                     },
                     child: CircleAvatar(
-                      radius: 50,
+                      radius: 60,
                       backgroundImage: AssetImage(_profileImage),
+                      backgroundColor: Colors.white,
                     ),
                   ),
                   SizedBox(height: 10),
@@ -110,11 +131,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     _userName,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18,
+                      fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.orange[400],
+                    ),
                     onPressed: () {
                       // Tambahkan logika login/sign-up di sini
                     },
@@ -142,16 +166,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
             // Tombol Bookmark
             ListTile(
               title: Text("Bookmark"),
-              leading: Icon(Icons.bookmark),
+              leading: Icon(Icons.bookmark, color: Colors.red[800]),
               onTap: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => BookmarkScreen()));
+                  context,
+                  MaterialPageRoute(builder: (context) => BookmarkScreen()),
+                );
               },
             ),
             // Daftar Aktivitas
             ListTile(
               title: Text("Daftar Aktivitas"),
               subtitle: Text("- Membaca Resep: Kung Pao Chicken"),
+              leading: Icon(Icons.restaurant, color: Colors.orange[400]),
             ),
             // Seksi Inspirasi Harian
             Padding(
@@ -162,7 +189,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   padding: EdgeInsets.all(16),
                   child: Text(
                     "\"Tahukah kamu? Dim sum artinya 'menyentuh hati' dalam bahasa Mandarin.\"",
-                    style: TextStyle(fontStyle: FontStyle.italic),
+                    style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                      color: Colors.red[800],
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),

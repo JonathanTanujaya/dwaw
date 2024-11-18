@@ -1,19 +1,62 @@
+// RecipeDetailScreen.dart
 import 'package:flutter/material.dart';
 import 'package:main/data/dataRecipe.dart'; // Import file data resep.
+import 'package:main/bookmark_manager.dart';
+import 'package:main/models/recipe.dart'; // Import BookmarkManager.
 
-class RecipeDetailScreen extends StatelessWidget {
+class RecipeDetailScreen extends StatefulWidget {
   final String recipeId; // Menggunakan ID sebagai parameter utama.
 
   RecipeDetailScreen({required this.recipeId});
 
   @override
-  Widget build(BuildContext context) {
+  _RecipeDetailScreenState createState() => _RecipeDetailScreenState();
+}
+
+class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
+  late Recipe recipeData;
+  bool isBookmarked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadRecipe();
+  }
+
+  Future<void> _loadRecipe() async {
     // Mencari data berdasarkan ID
-    final recipeData = rList.firstWhere(
-      (recipe) => recipe.id == recipeId, // Asumsi: Setiap resep memiliki properti `id`.
-      orElse: () => throw Exception("Resep dengan ID $recipeId tidak ditemukan."),
+    recipeData = rList.firstWhere(
+      (recipe) => recipe.id == widget.recipeId,
+      orElse: () => throw Exception("Resep dengan ID ${widget.recipeId} tidak ditemukan."),
     );
 
+    // Mengecek status bookmark
+    isBookmarked = await BookmarkManager.isBookmarked(widget.recipeId);
+    setState(() {});
+  }
+
+  Future<void> _toggleBookmark() async {
+    if (isBookmarked) {
+      await BookmarkManager.removeBookmark(widget.recipeId);
+    } else {
+      await BookmarkManager.addBookmark(widget.recipeId);
+    }
+    setState(() {
+      isBookmarked = !isBookmarked;
+    });
+
+    // Menampilkan snackbar sebagai umpan balik
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(isBookmarked ? 'Resep dibookmark' : 'Bookmark dihapus'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Pastikan data resep sudah dimuat
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -22,6 +65,15 @@ class RecipeDetailScreen extends StatelessWidget {
         ),
         iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Colors.redAccent,
+        actions: [
+          IconButton(
+            icon: Icon(
+              isBookmarked ? Icons.bookmark : Icons.bookmark_border,
+              color: Colors.white,
+            ),
+            onPressed: _toggleBookmark,
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(

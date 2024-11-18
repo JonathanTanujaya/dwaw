@@ -20,4 +20,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - images/
+    - images/avatar/
+    - images/categories/
+    - images/resep/
