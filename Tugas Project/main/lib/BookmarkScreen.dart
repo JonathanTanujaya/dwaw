@@ -1,9 +1,8 @@
-// BookmarkScreen.dart
 import 'package:flutter/material.dart';
 import 'package:main/bookmark_manager.dart';
-import 'package:main/data/dataRecipe.dart';
 import 'package:main/RecipeDetailScreen.dart';
 import 'package:main/models/recipe.dart';
+import 'package:main/data/dataRecipe.dart';
 
 class BookmarkScreen extends StatefulWidget {
   @override
@@ -11,7 +10,6 @@ class BookmarkScreen extends StatefulWidget {
 }
 
 class _BookmarkScreenState extends State<BookmarkScreen> {
-  List<String> bookmarkedRecipeIds = [];
   List<Recipe> bookmarkedRecipes = [];
 
   @override
@@ -21,9 +19,13 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
   }
 
   Future<void> _loadBookmarkedRecipes() async {
-    bookmarkedRecipeIds = await BookmarkManager.getBookmarkedRecipes();
-    bookmarkedRecipes = rList.where((recipe) => bookmarkedRecipeIds.contains(recipe.id)).toList();
-    setState(() {});
+    List<String> bookmarkedRecipeIds =
+        await BookmarkManager.getBookmarkedRecipes();
+    setState(() {
+      bookmarkedRecipes = rList
+          .where((recipe) => bookmarkedRecipeIds.contains(recipe.id))
+          .toList();
+    });
   }
 
   Future<void> _removeBookmark(String recipeId) async {
@@ -41,11 +43,8 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Bookmark",
-          style: TextStyle(color: Colors.amberAccent[100]),
-        ),
-        backgroundColor: Colors.red[800],
+        title: Text("Bookmark"),
+        backgroundColor: Colors.redAccent,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -58,15 +57,11 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.bookmark_outline, size: 100, color: Colors.red[300]),
+                  Icon(Icons.bookmark_outline, size: 100, color: Colors.grey),
                   SizedBox(height: 10),
                   Text(
-                    "Daftar Bookmark Kosong",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey[700],
-                    ),
+                    "Belum ada resep yang di-bookmark",
+                    style: TextStyle(fontSize: 18, color: Colors.grey),
                   ),
                 ],
               ),
@@ -75,25 +70,37 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
               itemCount: bookmarkedRecipes.length,
               itemBuilder: (context, index) {
                 final recipe = bookmarkedRecipes[index];
-                return ListTile(
-                  leading: Image.asset(
-                    recipe.imageAsset,
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
+                return Card(
+                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                  child: ListTile(
+                    leading: Image.asset(
+                      recipe.imageAsset,
+                      width: 60,
+                      height: 60,
+                      fit: BoxFit.cover,
+                    ),
+                    title: Text(recipe.name),
+                    subtitle: Text(recipe.description),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete, color: Colors.red),
+                      onPressed: () => _removeBookmark(recipe.id),
+                    ),
+                    onTap: () async {
+                      // Navigasi ke RecipeDetailScreen
+                      bool? updated = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              RecipeDetailScreen(recipeId: recipe.id),
+                        ),
+                      );
+
+                      // Perbarui data jika ada perubahan
+                      if (updated == true) {
+                        _loadBookmarkedRecipes();
+                      }
+                    },
                   ),
-                  title: Text(recipe.name),
-                  subtitle: Text(recipe.description),
-                  trailing: IconButton(
-                    icon: Icon(Icons.delete, color: Colors.red),
-                    onPressed: () => _removeBookmark(recipe.id),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => RecipeDetailScreen(recipeId: recipe.id)),
-                    ).then((_) => _loadBookmarkedRecipes()); // Refresh setelah kembali
-                  },
                 );
               },
             ),

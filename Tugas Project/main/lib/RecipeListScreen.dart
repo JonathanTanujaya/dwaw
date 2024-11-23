@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:main/data/dataRecipe.dart'; // Import data resep.
 import 'RecipeDetailScreen.dart'; // Layar detail resep.
 
+
 class RecipeListScreen extends StatelessWidget {
   final String category;
 
@@ -11,6 +12,7 @@ class RecipeListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // Filter resep berdasarkan kategori.
     final filteredRecipes = rList.where((recipe) => recipe.category.contains(category)).toList();
+
 
     return Scaffold(
       appBar: AppBar(
